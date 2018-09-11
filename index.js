@@ -71,8 +71,7 @@ var vue = new Vue({
 			for (var i = 0; i < res_count; i++){
 				var res = this.resources[i]
 				var ps = res.process.sort(this.user_resource_sort)
-				console.log(ps)
-				// init waiting time
+				//init waiting time
 				for (var j = 0; j < ps.length; j++){
 					var p = ps[j]
 					var user = p.user
