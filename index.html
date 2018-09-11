@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Time Sharing System</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	
+	
+</head>
+<body>
+	<div id="app">
+		<div class="grid-container">			
+			<div class="card" v-for="r in resources">
+
+			  <p>
+			  	<b style="margin-left: 50px">Resource {{r.name}}</b>
+			  	<i class="material-icons" :id="'icon-' + r.name" @click="display_queue(r)">arrow_drop_down</i>
+			  </p>
+				
+			
+
+			  <div class="queue_list" :id="'queue-' + r.name" >
+			  	<div class="queue"> 
+			  		<div> <b>Users</b> </div>
+			  		<div> <b>Time</b> </div>
+			  		<div> <b>Wait</b> </div>
+			  	</div>
+			  	<div class="queue" v-for="queue in r.process">
+			  		<div> User {{queue.user.name}}</div>
+			  		<div> {{queue.time}}</div>
+			  		<div> {{queue.waiting_time}}</div>
+			  	</div>
+			  	<p><b> Time Left: {{r.time}} </b></p>
+			  </div>
+			  <div :id="'detail-' + r.name" >
+				  <div  class="user" style="background: #ff4040">
+				    <h4><b> <span v-if="r.current">USER {{r.current.user.name}}</span></b></h4> 
+					</div>
+					<span style="float: left; padding: 10px;">Remaining time</span>
+					<div class="countdown">
+						<div class="cd-number">
+							<span v-if="r.current">{{r.current.time}}</span>
+							<span v-else>0</span>
+						</div>
+						<svg>
+							<circle :id="'circle-' + r.name" r="18" cx="20" cy="20"></circle>
+						</svg>
+					</div>
+				</div>
+				
+			</div> 
+
+		</div>
+	</div>
+	
+</body>
+
+<script src="index.js"></script>	
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+
+</html>
