@@ -48,7 +48,8 @@ var vue = new Vue({
 		color: ['#ef9a9a', '#ce93d8', '#9fa8da', '#81d4fa', '#80cbc4', '#c5e1a5', '#fff59d', '#ffcc80', '#bcaaa4', 
 				 '#e53935', '#e53935', '#3949ab', '#039be5', '#00897b', '#7cb342', '#fdd835', '#fb8c00', '#6d4c41',
 				 '#ff5252', '#e040fb', '#536dfe', '#40c4ff', '#64ffda', '#ffab40',  '#c51162', '#6200ea', '#2962ff',
-				 '#00b8d4', '#00c853', '#aeea00', '#cfd8dc']
+				 '#00b8d4', '#00c853', '#aeea00', '#cfd8dc'],
+		num: 30,
 	},
 	methods: {
 		initialize: function () {
@@ -70,6 +71,7 @@ var vue = new Vue({
 			for (var i = 0; i < res_count; i++){
 				var res = this.resources[i]
 				var ps = res.process.sort(this.user_resource_sort)
+				console.log(ps)
 				// init waiting time
 				for (var j = 0; j < ps.length; j++){
 					var p = ps[j]
@@ -149,7 +151,7 @@ var vue = new Vue({
 		},
 		tick: function (index, time) {
 			var color = time < 5 ? 'red;':'blue;'
-			var size = 113 - (113 / 30) * time;
+			var size = 113 - (113 / this.num) * time;
 			var el_name = 'circle-' + (index + 1)
 			var element = document.getElementById(el_name)
 			if (element){
@@ -181,10 +183,15 @@ var vue = new Vue({
 		process_sort: function(a, b) {
 			var x = a.waiting_time
 			var y = b.waiting_time
+			if (x-y == 0){
+				var x = a.user.name
+				var y = b.user.name
+				return x - y
+			}
 			return x - y
 		},
 		random: function() {
-			return  Math.floor(Math.random() * 30 + 1)
+			return  Math.floor(Math.random() * this.num + 1)
 		},
 	}
 })
