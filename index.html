@@ -34,10 +34,11 @@
 			  	<p><b> Time Left: {{r.time}} </b></p>
 			  </div>
 			  <div :id="'detail-' + r.name" >
-				  <div  class="user" style="background: #ff4040">
+			  	<!-- style="background: #ff4040" -->
+				  <div  class="user" v-bind:style="{ backgroundColor: r.current ? r.current.user.color: color[30]}">
 				    <h4><b> <span v-if="r.current">USER {{r.current.user.name}}</span></b></h4> 
 					</div>
-					<span style="float: left; padding: 10px;">Remaining time</span>
+					<span style="float: left; padding: 10px;">Time</span>
 					<div class="countdown">
 						<div class="cd-number">
 							<span v-if="r.current">{{r.current.time}}</span>

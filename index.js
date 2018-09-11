@@ -26,10 +26,11 @@ class Resource {
 
 
 class User {
-	constructor(name) {
+	constructor(name, color) {
 		this.name = name
 		this.resources = []
 		this.res_time = []
+		this.color = color
 	}
 
 	request(resource, time){
@@ -44,6 +45,10 @@ var vue = new Vue({
 	data: {
 		resources: [],
 		users: [],
+		color: ['#ef9a9a', '#ce93d8', '#9fa8da', '#81d4fa', '#80cbc4', '#c5e1a5', '#fff59d', '#ffcc80', '#bcaaa4', 
+				 '#e53935', '#e53935', '#3949ab', '#039be5', '#00897b', '#7cb342', '#fdd835', '#fb8c00', '#6d4c41',
+				 '#ff5252', '#e040fb', '#536dfe', '#40c4ff', '#64ffda', '#ffab40',  '#c51162', '#6200ea', '#2962ff',
+				 '#00b8d4', '#00c853', '#aeea00', '#cfd8dc']
 	},
 	methods: {
 		initialize: function () {
@@ -54,7 +59,7 @@ var vue = new Vue({
 			}
 			var res_list = this.resources.slice(0)	
 			for (var i = 1; i <= user_count; i++){
-				var u = new User(i)
+				var u = new User(i, this.color[i])
 				this.users.push(u)
 				var user_res = res_list.sort(() => .5 - Math.random()).slice(0, this.random())
 				user_res = user_res.sort(this.resource_sort)
@@ -110,7 +115,7 @@ var vue = new Vue({
 					p.user.resources.shift()
 					p.user.res_time.shift()
 					if (res.process.indexOf(p)!= 0){
-						alert('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRORRRRRRRRRRRRR')
+						alert('ERROR')
 					} 
 					res.process.splice(0, 1)
 					res.current = null
@@ -144,7 +149,7 @@ var vue = new Vue({
 		},
 		tick: function (index, time) {
 			var color = time < 5 ? 'red;':'blue;'
-			var size = 113 - (113 / 8) * time;
+			var size = 113 - (113 / 30) * time;
 			var el_name = 'circle-' + (index + 1)
 			var element = document.getElementById(el_name)
 			if (element){
@@ -174,7 +179,7 @@ var vue = new Vue({
 			return x - y
 		},
 		random: function() {
-			return  Math.floor(Math.random() * 8 + 1)
+			return  Math.floor(Math.random() * 30 + 1)
 		},
 	}
 })
@@ -182,7 +187,7 @@ vue.initialize()
 
 setInterval(function(){
   	vue.update();
-}, 1000);vue.update()
+}, 1500);vue.update()
 
 
 
